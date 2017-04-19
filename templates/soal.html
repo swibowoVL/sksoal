@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>Demo Soal Management</title>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/common.js') }}">
+<style type="text/css">
+	div.fixedwidth {
+		font-family: Arial, Helvetica, sans-serif ;
+		font-size: 1.1em ;
+		width: 730px ;
+		margin-left: auto ;
+		margin-right: auto ;
+		padding: 10px ;
+		background-color: white ;
+		color: black ;
+		border: 1px solid black ;
+	}
+body {
+        background-color: #FFFFFF ;
+	color: black ;
+}
+p, ul, td {
+	font-family: Arial, Helvetica, sans-serif ;
+}
+h1 {
+	font-family: Arial, Helvetica, sans-serif ;
+	font-size: 2em ;
+	text-align: center ;
+}
+h2 {
+	font-family: Arial, Helvetica, sans-serif ;
+	text-align: center ;
+	font-size: 1.4em ;
+	background-color: #f0f0f0 ;
+	color: black ;
+}
+a:link {
+	color: blue ;
+	background: transparent ;
+}
+a:visited {
+	color: purple ;
+	background: transparent ;
+}
+a:hover {
+	color: black ;
+	background: #ff0 ;
+}
+a:active {
+	color: red ;
+	background: transparent ;
+}
+div.mainbody {
+	font-family: Arial, Helvetica, sans-serif ;
+	font-size: 1.1em ;
+	width: 90% ;
+	max-width: 730px ;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding: 10px ;
+	background-color: white ;
+	color: black ;
+	border: 1px solid black ;
+}
+
+div.exampletext {
+	border: 1px solid green ;
+	padding: 10px ;
+}
+</style>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script src="{{ url_for('static',filename='styles/common.js') }}" language="JavaScript" type="text/javascript"></script>
+
+</head>
+
+<body >
+
+<div class="fixedwidth">
+<h1>Demo Sistem Kelola Soal</h1>
+
+<h2>Tentang web ini</h2>
+
+<p>
+Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sistem kelola soal. Baca instruksi dibawah ini untuk memahami lebih lanjut.
+</p>
+
+
+<p>
+<ul>
+    <li>Pada setiap postingan terdapat 2 tombol. Satu tombol untuk mendownload soal-solusi dalam bentuk pdf dan tombol 'susun' untuk menyusun soal-soal terpilih menjadi dokumen yang tersusun rapi.
+    <li>Pilih soal-soal yang ingin disusun sebagai dokumen. Tampilan "Susunan Sekarang" akan diperbaharui ketika tombol susun ditekan.
+    <li>Tekan tombol konstruksi untuk mendapatkan dokumen pdf dengan tampilan tertata rapi yang berisi soal-soal yang telah disusun.
+    <li> Ditujukan buat para akademisi ketika harus menyusun soal untuk ujian.
+    <li>Klik link video dibawah ini untuk meliat demo.
+<ul>
+</p>
+<h2>Susunan Saat ini</h2>
+<p>
+Terima kasih kepada kertaslecek yang telah memberikan archive soal-soal untuk digunakan di demo ini.
+Bagi para pelajar, web ini juga bisa digunakan untuk mendownload soal-soal fisika
+</p>
+<h2>Kinematik 1</h2>
+<p>
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</p>
+</div>
+&nbsp;
+</body></html>
