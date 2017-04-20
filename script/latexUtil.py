@@ -47,10 +47,15 @@ class LatexUtil:
             commandstr='pdflatex --output-directory=./latex/outpdf '+namefile
             print(commandstr)
             proc=os.system(commandstr)
-            #proc=subprocess.Popen(commandstr,shell=True)
+	    return True
         except Exception as e:
             print(str(e))
             return False
+   def process(listNumber):
+        strContent=self.assemble(listNumber)
+        name=self.writeToFile(strContent)
+        res=texToPdf(name)
+
 #setup()
 
 if __name__=="__main__":
