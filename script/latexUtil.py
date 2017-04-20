@@ -44,7 +44,7 @@ class LatexUtil:
             return None
     def texToPdf(self,namefile):
         try:
-            commandstr='latex '+namefile
+            commandstr='pdflatex --output-directory=./latex/outpdf '+namefile
             print(commandstr)
             proc=os.system(commandstr)
             #proc=subprocess.Popen(commandstr,shell=True)
@@ -56,7 +56,7 @@ class LatexUtil:
 if __name__=="__main__":
     c=LatexUtil()
     c.setup()
-    strContent=c.assemble([1,1,1])
+    strContent=c.assemble([1,2,3])
     #print(strContent)
     name=c.writeToFile(strContent)
     c.texToPdf(name)
