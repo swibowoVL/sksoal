@@ -1,37 +1,62 @@
-#import subprocess
-#commandstr='pdflatex ./latex/top.tex'
-#proc=subprocess.Popen(commandstr,shell=True)
-if True:
-# class LatexUtil:
+import time
+import random
+import subprocess
+import os
+class LatexUtil:
     def __init__(self):
         pass
     # def setup(self):
-    def setup():
-        mapNumber={1:'./latex/top.tex',2:'./latex/mid.tex',3:'./latex/end.tex'} 
-        mapString={}
+    def setup(self):
+        self.mapNumber={1:'./latex/top.tex',2:'./latex/mid.tex',3:'./latex/end.tex'} 
+        self.mapString={}
         # self.fileString=[]
         fileString=[]
-        for key in mapNumber.keys():
-            filePath=mapNumber[key]
+        for key in self.mapNumber.keys():
+            filePath=self.mapNumber[key]
             try:
-                fileHandler=open(mapNumber[key],'r')
-                mapString[key]=fileHandler.read()
+                fileHandler=open(self.mapNumber[key],'r')
+                self.mapString[key]=fileHandler.read()
                 fileHandler.close()
             except Exception as e:
                 print(str(e))
-                mapString[key]=''
-        print(mapString[3])
-
-    def assemble(listNumber):
+                self.mapString[key]=''
+        self.direcLatex='./latex/outtex/'
+    def assemble(self,listNumber):
         outStr=''
         for i in listNumber:
             try:
-                outStr+=mapString[i]
+                outStr+=self.mapString[i]
             except Exception as e:
                 print(str(e))
-setup()
+        return outStr
+    def writeToFile(self,strContent):
+        curtime=str(int(round(time.time()*1000)))
+        randInt=str(int(round(random.random()*10000)))
+        namefile=self.direcLatex+curtime+'XX'+randInt+'.tex'
 
-# if '__name__'=='__main__':
-    # print('ok')
-    # c=LatexUtil()
-    # c.setup()
+        try:
+            fileHandler=open(namefile,'w')
+            fileHandler.write(strContent)
+            fileHandler.close()
+            return namefile
+        except Exception as e:
+            print(str(e))
+            return None
+    def texToPdf(self,namefile):
+        try:
+            commandstr='latex '+namefile
+            print(commandstr)
+            proc=os.system(commandstr)
+            #proc=subprocess.Popen(commandstr,shell=True)
+        except Exception as e:
+            print(str(e))
+            return False
+#setup()
+
+if __name__=="__main__":
+    c=LatexUtil()
+    c.setup()
+    strContent=c.assemble([1,1,1])
+    #print(strContent)
+    name=c.writeToFile(strContent)
+    c.texToPdf(name)
