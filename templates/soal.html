@@ -1,9 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <title>Demo Soal Management</title>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/common.js') }}">
 <style type="text/css">
 	div.fixedwidth {
 		font-family: Arial, Helvetica, sans-serif ;
@@ -20,6 +18,10 @@ body {
         background-color: #FFFFFF ;
 	color: black ;
 }
+.sidebar { float: left; }
+
+.sidebar { width: 15%; }
+.box { background: #eee; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;position: fixed; }
 p, ul, td {
 	font-family: Arial, Helvetica, sans-serif ;
 }
@@ -68,17 +70,70 @@ div.exampletext {
 	border: 1px solid green ;
 	padding: 10px ;
 }
+.susunbutton {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
+.susunsoal {
+        background-color: #1CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
+.susunsoal:hover {
+        background-color: #15A900;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
 </style>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
   });
 </script>
-<script src="{{ url_for('static',filename='styles/common.js') }}" language="JavaScript" type="text/javascript"></script>
+<head>
 
 </head>
 
 <body >
+ <div class="sidebar">
+    <div class="box">
+        SUSUNAN
+        <ul id="listSusun">
+        </ul>
+    <div class="susunbutton" id='konstruk'>
+        KONSTRUKSI PDF 
+    </div>
+    <div>
+        <table>
+          <tr>TEMPLATE</tr>
+          <td><input type="radio" name="q12_3" value="1">Ujian</td>
+          <td><input type="radio" name="q12_3" value="2">Soal-Solusi</td>
+        </table>
+    </div>
+</div>
+    </div>
 
 <div class="fixedwidth">
 <h1>Demo Sistem Kelola Soal</h1>
@@ -99,16 +154,68 @@ Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sis
     <li>Klik link video dibawah ini untuk meliat demo.
 <ul>
 </p>
-<h2>Susunan Saat ini</h2>
+
 <p>
 Terima kasih kepada kertaslecek yang telah memberikan archive soal-soal untuk digunakan di demo ini.
 Bagi para pelajar, web ini juga bisa digunakan untuk mendownload soal-soal fisika
 </p>
-<h2>Kinematik 1</h2>
-<p>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    var listSoal=[]; 
+    $( document ).ready(function(){
+        $(".susunsoal").click(function(){      
+            console.log($(this).parent().attr('id')); 
+            listSoal.push(parseInt($(this).parent().attr('id'))); 
+            console.log(listSoal); 
+            $("#listSusun").append('<li>Soal '+$(this).parent().attr('id')+'</li>');
+        });
+    });
+
+    $("#konstruk").click(function(){
+        console.log("clicked"); 
+        var jsondata={'listNum':listSoal}
+        var jsonString=JSON.stringify(jsondata);
+        $.ajax({
+              url : "http://localhost:80/submit",
+              type: "POST",
+              data:jsonString,
+              contentType: "application/json; charset=utf-8",
+              dataType   : "text",
+              success    : function(response){
+                  console.log(response);
+                  window.location.href = response;
+              }
+              });
+    }); 
+  
+</script>
+<div id="1">
+<h2>Soal 1</h2>
 When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
 $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-</p>
+    <div class="susunsoal">
+    SUSUN
+    </div>
 </div>
-&nbsp;
-</body></html>
+
+<div id="2">
+<h2>Soal 2</h2>
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
+<div id="3">
+<h2>Soal 3</h2>
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
+</div>
+</body>
+</html>
