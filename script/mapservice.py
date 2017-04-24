@@ -1,8 +1,7 @@
+from configmap import mapSoal,mapSolusi
 class MapService:
     def __init__(self):
         self.template={};
-        mapSoal={1:'./latex/source/soal/1.tex',2:'./latex/source/soal/2.tex',3:'./latex/source/soal/3.tex','head':'./latex/source/soal/uashead.tex','tail':'./latex/source/soal/uastail.tex'} 
-        mapSolusi={1:'./latex/source/solusi/1sol.tex',2:'./latex/source/solusi/2sol.tex',3:'./latex/source/solusi/3sol.tex','head':'./latex/source/solusi/kuncihead.tex','tail':'./latex/source/solusi/kuncitail.tex'}
         self.template[1]=mapSoal
         self.template[2]=mapSolusi
         self.afterSoal='./latex/source/soal/after.tex'
@@ -18,7 +17,6 @@ class MapService:
             #for i 
         listOut.append(self.template[templateId]['tail'])
         return listOut
-
     def appendFile(self,listIn,num,templateId):
         listOut=listIn
         if templateId==1:
@@ -29,7 +27,6 @@ class MapService:
             listOut.append(self.template[1][num])
             listOut.append(self.template[templateId][num])
             return listOut
-        
     def process(self,input):
         listNum=input['listNumber']
         templateId=input['templateId']

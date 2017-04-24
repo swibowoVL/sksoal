@@ -39,7 +39,8 @@ if __name__=="__main__":
     c=LatexUtil()
     #c.setup()
     dictInput={}
-    dictInput['listNumber']=[3,3,1,2]
+    #dictInput['listNumber']=[3,1,2,5,6,7,8,9,10]
+    dictInput['listNumber']=[3,1,2,5,6,7,8,9,10,4]
     dictInput['templateId']=2
     #print(c.mp.process(dictInput))
     print(c.process(dictInput))
