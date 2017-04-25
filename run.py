@@ -1,6 +1,7 @@
 from flask import Flask,render_template, send_from_directory,request,redirect
 import json
 import os
+import traceback
 from script.latexUtil import LatexUtil
 app = Flask(__name__)
 
@@ -40,8 +41,12 @@ def assemble():
     postdata=request.data
     try:
         dictData=byteify(json.loads(postdata))
-        path,filename=lutl.process(dictData['listNum'])
+        print(dictData)
+        path,filename=lutl.process(dictData)
+        print(path,filename)
     except Exception as e:
+        traceback.print_exc()
+        print(Exception)
         return "RESPONS FAILED"
 
     if filename=='' or path=='':
@@ -58,5 +63,5 @@ def assemble():
 if __name__ == '__main__':
    global lutl
    lutl=LatexUtil() 
-   lutl.setup()
+   #lutl.setup()
    app.run(debug=True,host='0.0.0.0',port=80)
