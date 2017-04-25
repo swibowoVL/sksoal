@@ -152,6 +152,13 @@ div.exampletext {
 <script>
     var listSoal=[]; 
     $( document ).ready(function(){
+
+	var hostVal="http://localhost:80/submit"; 
+	$.get('./static/host.h', function(data) {
+			  window.hostVal=data; 
+			  //console.log(window.hostVal); 
+			}, 'text');
+	console.log(window.hostVal); 
         $(".susunsoal").click(function(){      
             console.log($(this).parent().attr('id')); 
             listSoal.push(parseInt($(this).parent().attr('id'))); 
@@ -167,7 +174,7 @@ div.exampletext {
         jsondata['templateId']=templateId; 
         var jsonString=JSON.stringify(jsondata);
         $.ajax({
-              url : "http://localhost:80/submit",
+              url : window.hostVal+':80/submit',
               type: "POST",
               data:jsonString,
               contentType: "application/json; charset=utf-8",
