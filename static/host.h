@@ -1,1 +1,1 @@
-http://35.160.240.14
+http://sksoal.kertaslecek.com
