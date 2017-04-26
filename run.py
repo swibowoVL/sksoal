@@ -14,6 +14,10 @@ def index3(filename):
     return send_from_directory('./latex/outpdf/',filename,mimetype='application/pdf')
     #return send_from_directory('./latex/outpdf/',filename,mimetype='application/pdf', as_attachment=True)
 
+@app.route('/pdf/<filename>/attach',methods=['GET'])
+def index4(filename):
+    return send_from_directory('./latex/outpdf/',filename,mimetype='application/pdf', as_attachment=True)
+
 @app.route('/',methods=['POST'])
 def index2():
     postdata=request.data
