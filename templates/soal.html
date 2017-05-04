@@ -141,8 +141,9 @@ div.exampletext {
         <center>
         <table>
           <tr>TEMPLATE</tr>
-          <td><input type="radio" name="templateS" value="ujian" checked="checked">Ujian</td>
-          <td><input type="radio" name="templateS" value="solusi">Soal-Solusi</td>
+          <tr><td><input type="radio" name="templateS" value="ujian" checked="checked">Ujian</td></tr>
+          <tr><td><input type="radio" name="templateS" value="solusi">Soal-Solusi</td></tr>
+          <tr><td><input type="radio" name="templateS" value="col2">Two Column</td></tr>
         </table>
         </center>
     </div>
@@ -152,11 +153,10 @@ div.exampletext {
 <script>
     var listSoal=[]; 
     $( document ).ready(function(){
-
-	var hostVal="http://localhost:80/submit"; 
+	//var hostVal="http://localhost:80/submit"; 
 	$.get('./static/host.h', function(data) {
 			  window.hostVal=data; 
-			  //console.log(window.hostVal); 
+			  console.log(window.hostVal); 
 			}, 'text');
         $(".susunsoal").click(function(){      
             console.log($(this).parent().attr('id')); 
@@ -226,7 +226,7 @@ Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sis
 </p>
 
 <p>
-Ditujukan kepada akademia atau edukator sebagai kemudahan menyusun soal-soal. 
+Ditujukan kepada akademia atau edukator sebagai kemudahan menyusun soal-soal. <center>Feedback, feature request, or just shoutout, tweet to <a href="https://twitter.com/sksoalkl">@sksoalkl</a></center><br><center>kertaslecek@gmail.com </center>
 </p>
 <div id="1">
 <h2>Soal 1</h2>
@@ -239,6 +239,7 @@ a. Projektil dilontarkan pada bidang miring dengan sudut $\phi$ dengan kecepatan
 \end{equation*}
 
 b. Berapa nilai $\theta$ supaya $d$ maksimum dan berapa nilai maksimum tersebut ?
+<br>
     <div class="susunsoal">
     SUSUN
     </div>
