@@ -1,1 +1,1 @@
-http://sksoal.kertaslecek.com
+http://demo.kertasrapi.com

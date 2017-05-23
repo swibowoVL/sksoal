@@ -1,1 +1,1 @@
-sudo python run.py >>out.log &
+sudo python run.py sksoal >> out.log &
