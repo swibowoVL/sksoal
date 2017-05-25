@@ -2,8 +2,10 @@ import time
 import random
 import subprocess
 import os
-from streamfileservice import StreamFileService
-from mapservice import MapService
+from .streamfileservice import StreamFileService
+from .mapservice import MapService
+#from . import StreamFileService
+#from . import MapService
 class LatexUtil:
     def __init__(self):
         self.mp=MapService()

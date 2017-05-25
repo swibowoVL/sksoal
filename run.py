@@ -29,6 +29,7 @@ def index2():
     return 'ok'
     
 def byteify(input):
+    return input
     if isinstance(input, dict):
         return {byteify(key): byteify(value) 
                 for key, value in input.iteritems()}
@@ -41,9 +42,8 @@ def byteify(input):
 
 @app.route('/submit', methods=['POST'])
 def assemble():
-    #return send_from_directory('./latex/outpdf/','1492890201444XX2937.pdf',mimetype='application/pdf')
     global lutl
-    postdata=request.data
+    postdata=(request.data).decode("utf-8")
     try:
         dictData=byteify(json.loads(postdata))
         print(dictData)
@@ -57,17 +57,11 @@ def assemble():
     if filename=='' or path=='':
         return 'Fail Processing. Please come back again'
     else:
-        #return 'success'
         print(path,filename)
-        #return status.HTTP_201_CREATED
-	host=request.host
-	print(host)
-	print("http://"+host+"/pdf/"+filename)
+        host=request.host
+        print(host)
+        print("http://"+host+"/pdf/"+filename)
         return "http://"+host+"/pdf/"+filename
-        #return "http://localhost/pdf/"+filename
-        #return redirect("http://localhost/pdf", code=303)
-        #return send_from_directory('./latex/outpdf/','1492890201444XX2937.pdf',mimetype='application/pdf')
-        #return send_from_directory(path,filename,mimetype='application/pdf')
 
 if __name__ == '__main__':
    global lutl

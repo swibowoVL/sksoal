@@ -145,6 +145,7 @@ div.exampletext {
           <tr><td><input type="radio" name="templateS" value="ujian" checked="checked">Ujian</td></tr>
           <tr><td><input type="radio" name="templateS" value="solusi">Soal-Solusi</td></tr>
           <tr><td><input type="radio" name="templateS" value="col2">Two Column</td></tr>
+          <tr><td><input type="radio" name="templateS" value="newspaper">SURAT KABAR (lucu)</td></tr>
         </table>
         </center>
     </div>
@@ -174,7 +175,8 @@ div.exampletext {
         jsondata['templateId']=templateId; 
         var jsonString=JSON.stringify(jsondata);
         $.ajax({
-              url : window.hostVal+':80/submit',
+              url : 'submit',
+              //url : window.hostVal+':80/submit',
               type: "POST",
               data:jsonString,
               contentType: "application/json; charset=utf-8",
@@ -201,6 +203,9 @@ div.exampletext {
         }
         else if($('input[name=templateS]:checked').val()=='col2'){
             return 3; 
+        }
+	else if($('input[name=templateS]:checked').val()=='newspaper'){
+            return 4; 
         }
     };
   
