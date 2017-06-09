@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <title>Demo Soal Management</title>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/common.js') }}">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!--<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>-->
 <style type="text/css">
 	div.fixedwidth {
 		font-family: Arial, Helvetica, sans-serif ;
@@ -20,6 +19,10 @@ body {
         background-color: #FFFFFF ;
 	color: black ;
 }
+.sidebar { float: left; }
+
+.sidebar { width: 15%; }
+.box { background: #eee; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;position: fixed; }
 p, ul, td {
 	font-family: Arial, Helvetica, sans-serif ;
 }
@@ -68,47 +71,315 @@ div.exampletext {
 	border: 1px solid green ;
 	padding: 10px ;
 }
+.susunbutton {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
+.susunbutton:hover {
+        background-color: #1C0150;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
+.susunsoal {
+        background-color: #1CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
+.susunsoal:hover {
+        background-color: #15A900;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
 </style>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
   });
 </script>
-<script src="{{ url_for('static',filename='styles/common.js') }}" language="JavaScript" type="text/javascript"></script>
+<head>
 
 </head>
 
 <body >
+ <div class="sidebar">
+    <div class="box">
+        <center>SUSUNAN SAAT INI</center>
+        <ul id="listSusun">
+        </ul>
+        <div class="susunbutton" id='konstruk'>
+            KONSTRUKSI PDF 
+        </div>
+    <div>
+        <center>
+        <table>
+          <tr>TEMPLATE</tr>
+          <tr><td><input type="radio" name="templateS" value="ujian" checked="checked">Ujian</td></tr>
+          <tr><td><input type="radio" name="templateS" value="solusi">Soal-Solusi</td></tr>
+          <tr><td><input type="radio" name="templateS" value="col2">Two Column</td></tr>
+          <tr><td><input type="radio" name="templateS" value="newspaper">SURAT KABAR (lucu)</td></tr>
+        </table>
+        </center>
+    </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    var listSoal=[]; 
+    $( document ).ready(function(){
+	//var hostVal="http://localhost:80/submit"; 
+	$.get('./static/host.h', function(data) {
+			  window.hostVal=data; 
+			  console.log(window.hostVal); 
+			}, 'text');
+        $(".susunsoal").click(function(){      
+            console.log($(this).parent().attr('id')); 
+            listSoal.push(parseInt($(this).parent().attr('id'))); 
+            console.log(listSoal); 
+            $("#listSusun").append('<li>Soal '+$(this).parent().attr('id')+'</li>');
+        });
+    });
 
-<div class="fixedwidth">
+    $("#konstruk").click(function(){
+        console.log("clicked"); 
+        var jsondata={'listNumber':listSoal}; 
+        var templateId=getRadio()
+        jsondata['templateId']=templateId; 
+        var jsonString=JSON.stringify(jsondata);
+        $.ajax({
+              url : 'submit',
+              //url : window.hostVal+':80/submit',
+              type: "POST",
+              data:jsonString,
+              contentType: "application/json; charset=utf-8",
+              dataType   : "text",
+              success    : function(response){
+		  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		    var linkMobile=response+'/attach'; 
+                    console.log(linkMobile);
+              	    window.location.href = linkMobile;
+		  }else{
+                    console.log(response);
+                    window.location.href = response;
+	       	  }
+              }
+              });
+    }); 
+    var getRadio=function(){
+        console.log($('input[name=templateS]:checked').val()); 
+        if ($('input[name=templateS]:checked').val()=='ujian'){
+            return 1; 
+        }
+        else if($('input[name=templateS]:checked').val()=='solusi'){
+            return 2;
+        }
+        else if($('input[name=templateS]:checked').val()=='col2'){
+            return 3; 
+        }
+	else if($('input[name=templateS]:checked').val()=='newspaper'){
+            return 4; 
+        }
+    };
+  
+</script>
+<div class="fixedwidth" id="mainsoal">
 <h1>Demo Sistem Kelola Soal</h1>
 
 <h2>Tentang web ini</h2>
 
 <p>
-Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sistem kelola soal. Baca instruksi dibawah ini untuk memahami lebih lanjut.
+Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sistem kelola soal.
 </p>
 
 
 <p>
+    <center><b>instruksi</b></center>
 <ul>
-    <li>Pada setiap postingan terdapat 2 tombol. Satu tombol untuk mendownload soal-solusi dalam bentuk pdf dan tombol 'susun' untuk menyusun soal-soal terpilih menjadi dokumen yang tersusun rapi.
-    <li>Pilih soal-soal yang ingin disusun sebagai dokumen. Tampilan "Susunan Sekarang" akan diperbaharui ketika tombol susun ditekan.
-    <li>Tekan tombol konstruksi untuk mendapatkan dokumen pdf dengan tampilan tertata rapi yang berisi soal-soal yang telah disusun.
-    <li> Ditujukan buat para akademisi ketika harus menyusun soal untuk ujian.
-    <li>Klik link video dibawah ini untuk meliat demo.
-<ul>
+    <li>Pada setiap postingan soal terdapat tombol <font color="#4CAF50"><b>susun</b></font>. Pilih soal-soal yang ingin disusun sebagai dokumen. 
+    <li>Tekan tombol <font color="#4CAF50"><b>susun</b></font> ini untuk memasukan dalam susunan. Tampilan "Susunan Saat Ini" akan diperbaharui ketika tombol susun ditekan.
+    <li>Tekan tombol <font color="#4CAF50"><b>KONSTRUKSI PDF</b></font> dan dokumen pdf akan digenerate dengan tampilan tertata rapi yang berisi soal-soal yang telah disusun. 
+    <li>Silahkan coba template-template yang lainnya
+    <li>Refresh halaman untuk mencoba dari awal
+</ul>
 </p>
-<h2>Susunan Saat ini</h2>
+
 <p>
-Terima kasih kepada kertaslecek yang telah memberikan archive soal-soal untuk digunakan di demo ini.
-Bagi para pelajar, web ini juga bisa digunakan untuk mendownload soal-soal fisika
+Ditujukan kepada akademia atau edukator sebagai kemudahan menyusun soal-soal. <center>Feedback, feature request, or just shoutout, tweet to <a href="https://twitter.com/sksoalkl">@sksoalkl</a></center><br><center> email to kertasrapi@gmail.com  </center><br><center>atau komentar di halaman paling bawah</center>
 </p>
-<h2>Kinematik 1</h2>
-<p>
-When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-</p>
+<div id="1">
+<h2>Soal 1</h2>
+<center>
+    <img src="./static/jpg/1_4_1_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+a. Projektil dilontarkan pada bidang miring dengan sudut $\phi$ dengan kecepatan awal $v$ dan sudut $\theta$ terhadap horizontal seperti pada gambar. Tunjukan bahwa projektil akan menempuh jarak $d$, dimana $d$ =
+\begin{equation*}
+        d= \frac{2 v \cos \left(\theta\right) \sin\left(\theta-\phi\right)}{g \cos^2\left(\theta\right)}
+\end{equation*}
+
+b. Berapa nilai $\theta$ supaya $d$ maksimum dan berapa nilai maksimum tersebut ?
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
 </div>
-&nbsp;
-</body></html>
+
+<div id="2">
+<h2>Soal 2</h2>
+<center>
+    <img src="./static/jpg/1_4_2_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+<br>
+Seseorang berdiri pada batu setengah bola yang beradius R menendang bola, sehingga bola mempunyai kecepatan horizontal $v$. <br> a$)$ Berapa kecepatan awal bola, jika bola tidak pernah menyentuh batu tersebut. <br>
+b$)$ Dengan kecepatan kritis(kecepatan dimana bola hampir menyentuh bola), berapa jauhkan bola itu jatuh ke tanah terhadap batu.
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
+<div id="3">
+<h2>Soal 3</h2>
+<center>
+    <img src="./static/jpg/1_5_1_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+<br>
+Sebuah objek bermassa $m_{1}$ berada pada meja horizontal. $m_{1}$ dihubungkan dengan $m_{2}$ oleh katrol tak bermassa $P_{1}$ dan $P_{2}$ seperti pada gambar.<br>
+a$)$ Cari hubungan percepatan benda 2 dengan percepatan benda 1 ? <br>
+b$)$ Cari tegangan tali ?<br>
+c$)$ Cari percepatan benda 1 dan benda 2 dalam $m_{1}$, $m_{2}$, dan $g$ ?
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="4">
+<h2>Soal 4</h2>
+Mobil bergerak dengan kelajuan 1.0 m/s. Jika koefisien gesek kinetik antara ban dengan jalan sebesar 0.1<br>
+Ketika mobil menginjak rem, berapa jarak minimum mobil sampai benar-benar berhenti?
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="5">
+<h2>Soal 5</h2>
+<br>
+<center>
+    <img src="./static/jpg/1_5_14_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+
+<center>
+    <!--<img src="./jpg/1_5_14_image_2.jpg" style="max-width: 100%; height: auto;" ></img>-->
+</center>
+<br>
+Balok dengan massa 3.00 Kg ditekan ke atas pada dinding dengan gaya <b>P</b> yang membentuk sudut $50^{0}$ terhadap horizontal. Koefisien gesek statik antara balok dengan dinding sebesar 0.25. Tentukan nilai yang mungkin dari besar gaya <b>P</b> agar balok tetap stasioner.
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="6">
+<h2>Soal 6</h2>
+Piston dalam mesin berosilasi seperti gerak harmonis sederhana. Posisi berubah-ubah berdasarkan persamaan:
+\begin{eqnarray*}
+x=(5.0 \mbox{ cm})\cos(2t+\frac{\pi}{6})
+\end{eqnarray*}
+Pada $t=0$ s , tentukan: <br>
+a. Posisi piston <br>
+b. kecepatan piston <br>
+c. percepatan piston <br>
+d. Periode dan amplitudo
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="7">
+<h2>Soal 7</h2>
+Objek bermassa 1.0 Kg dikaitkan pada pegas horizontal. Mula-mula pegas ditarik hingga memanjang 0.10 m, kemudian objek dilepas. Setelah itu dibutuhkan waktu 0.5 s sampai kecepatan balok menjadi nol. Berapa kecepatan maksimum objek.
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="8">
+<h2>Soal 8</h2>
+<br>
+<center>
+    <img src="./static/jpg/1_5_7_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+Mobil mengalami percepatan ketika menuruni bukit. Mobil awalnya diam kemudian mempunyai kecepatan 30 m/s dalam waktu 6 detik. Selama mobil dipercepat tergantung bandul (m= 0.1 Kg) pada atap mobil. Percepatan mobil sedemikian rupa sehingga bandul tetap tegak lurus atap mobil. Tentukan sudut $\theta$ dan tegangan tali? 
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="9">
+<h2>Soal 9</h2>
+<br>
+<center>
+    <img src="./static/jpg/1_5_8_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+</center>
+Gambar free-body balok diagram yang turun pada bidang miring dengan $\theta=15^{0}$, bila balok awalnya berada pada puncak dan panjang dari sisi miring 2 m, cari: <br>
+a. percepatan balok <br>
+b. kecepatan ketika mencapai meninggalkan bidang miring
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<div id="10">
+<h2>Soal 10</h2>
+<br>
+Balok bermassa 25.0 Kg diam pada permukaan horizontal. Gaya horizontal sebesar 75.0 N dibutuhkan untuk menggerakan balok. Setelah balok bergerak, gaya horizontal 60.0 N dibutuhkan untuk membuat balok bergerak dengan kecepatan konstan. Cari koefisien gesek statik dan kinetik dari informasi tersebut.
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+<script>
+var idcomments_acct = '317c7beb9b3c55eff898f2e662db7f04';
+var idcomments_post_id;
+var idcomments_post_url;
+</script>
+<span id="IDCommentsPostTitle" style="display:none"></span>
+<script type='text/javascript' src='https://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+</div>
+
+</body>
+
+<script>
+var idcomments_acct = '317c7beb9b3c55eff898f2e662db7f04';
+var idcomments_post_id;
+var idcomments_post_url;
+</script>
+<script type="text/javascript" src="https://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
+</html>
