@@ -135,6 +135,12 @@ div.exampletext {
         <center>SUSUNAN SAAT INI</center>
         <ul id="listSusun">
         </ul>
+        <div id='loading-image' ><center>
+            <img src="./static/gif/animated_progress.gif" style="max-width: 100%; height: auto;" ></img>
+            <br>
+            Mohon Tunggu...
+            </center>
+        </div>
         <div class="susunbutton" id='konstruk'>
             KONSTRUKSI PDF 
         </div>
@@ -155,6 +161,7 @@ div.exampletext {
 <script>
     var listSoal=[]; 
     $( document ).ready(function(){
+        $('#loading-image').hide(); 
 	//var hostVal="http://localhost:80/submit"; 
 	$.get('./static/host.h', function(data) {
 			  window.hostVal=data; 
@@ -174,6 +181,7 @@ div.exampletext {
         var templateId=getRadio()
         jsondata['templateId']=templateId; 
         var jsonString=JSON.stringify(jsondata);
+        $('#loading-image').show();
         $.ajax({
               url : 'submit',
               //url : window.hostVal+':80/submit',
@@ -190,6 +198,9 @@ div.exampletext {
                     console.log(response);
                     window.location.href = response;
 	       	  }
+              },
+              complete: function(){
+                $('#loading-image').hide();
               }
               });
     }); 
@@ -208,7 +219,6 @@ div.exampletext {
             return 4; 
         }
     };
-  
 </script>
 <div class="fixedwidth" id="mainsoal">
 <h1>Demo Sistem Kelola Soal</h1>
