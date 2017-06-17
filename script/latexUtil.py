@@ -18,7 +18,7 @@ class LatexUtil:
             try:
                 filepath=self.direcLatex+namefile+'.tex'
                 #commandstr='pdflatex -interaction=nonstopmode --output-directory='+self.direcPdf+' '+filepath
-                commandstr='latexmk -interaction=nonstopmode -pdf -jobname='+self.direcPdf+namefile+' '+filepath
+                commandstr='latexmk -xelatex -interaction=nonstopmode -pdf -jobname='+self.direcPdf+namefile+' '+filepath
                 print(commandstr)
                 proc=os.system(commandstr)
                 return True
@@ -47,7 +47,6 @@ if __name__=="__main__":
     #print(c.mp.process(dictInput))
     print(c.process(dictInput))
     #strContent=c.assemble([1,1,1])
->>>>>>> f41f50e017db8aa0d4dd665e3e5fe3e7ca4e1519
     #print(strContent)
     #name=c.writeToFile(strContent)
     #c.texToPdf(name)
