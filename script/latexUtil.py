@@ -18,7 +18,7 @@ class LatexUtil:
             try:
                 filepath=self.direcLatex+namefile+'.tex'
                 #commandstr='pdflatex -interaction=nonstopmode --output-directory='+self.direcPdf+' '+filepath
-                commandstr='latexmk -xelatex -interaction=nonstopmode -pdf -jobname='+self.direcPdf+namefile+' '+filepath
+                commandstr='latexmk -xelatex -silent -interaction=nonstopmode -pdf -jobname='+self.direcPdf+namefile+' '+filepath
                 print(commandstr)
                 proc=os.system(commandstr)
                 return True
