@@ -1,16 +1,20 @@
 \documentclass{article}
 
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
-
+\usepackage{fontspec}
 \usepackage{newspaper}
 
 \date{\today}
 \currentvolume{1}
 \currentissue{1}
 
+\newfontfamily\java[Scale=2.0,Path=./latex/fonts/,Mapping=tex-text, Color=000000]{tl}
+\newfontfamily\arabic[Scale=2.0,Path=./latex/fonts/,Mapping=tex-text, Color=000000]{Geeza}
+\newfontfamily\japan[Scale=1.0,Path=./latex/fonts/,Mapping=tex-text, Color=000000]{jp}
+\newfontfamily\japantwo[Scale=2.0,Path=./latex/fonts/,Mapping=tex-text, Color=000000]{jp}
 %% [LianTze] The newspaper package also provides 
 %% these commands to set various metadata:
 
@@ -60,5 +64,5 @@
 \begin{document}
 \maketitle
 
-\begin{multicols}{3}
+\begin{multicols*}{3}
 

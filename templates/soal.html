@@ -71,6 +71,17 @@ div.exampletext {
 	border: 1px solid green ;
 	padding: 10px ;
 }
+.hapus {
+        background-color: #e24c38;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+}
 .susunbutton {
         background-color: #4CAF50;
         border: none;
@@ -120,6 +131,41 @@ div.exampletext {
         cursor: pointer;
 }
 </style>
+<style type="text/css">
+    @font-face{
+        font-family:NotoJavanese;
+        src: url(./static/fonts/tl.ttf);
+    }
+    @font-face{
+        font-family:Arabic;
+        src: url(./static/fonts/Geeza.ttf);
+    }
+    @font-face{
+        font-family:Hiragana;
+        src: url(./static/fonts/jp.otf);
+    }
+.java{
+    font-family:NotoJavanese;
+    font-variant-ligatures: common-ligatures;
+    font-size: 2em;
+}
+.arab{
+    font-family:Arabic;
+    font-variant-ligatures: common-ligatures;
+    font-size: 2em;
+    text-align: right;
+}
+.Hiragana{
+    font-family:Hiragana;
+    font-variant-ligatures: common-ligatures;
+    font-size: 2em;
+}
+.Hiragana2{
+    font-family:Hiragana;
+    font-variant-ligatures: common-ligatures;
+    font-size: 1em;
+    display:inline;
+}</style>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
@@ -148,13 +194,19 @@ div.exampletext {
         <center>
         <table>
           <tr>TEMPLATE</tr>
-          <tr><td><input type="radio" name="templateS" value="ujian" checked="checked">Ujian</td></tr>
+          <tr><td><input type="radio" name="templateS" value="col2" checked="checked">Dua kolom</td></tr>
+          <tr><td><input type="radio" name="templateS" value="ujian" >Ujian essay</td></tr>
           <tr><td><input type="radio" name="templateS" value="solusi">Soal-Solusi</td></tr>
-          <tr><td><input type="radio" name="templateS" value="col2">Two Column</td></tr>
           <tr><td><input type="radio" name="templateS" value="newspaper">SURAT KABAR (lucu)</td></tr>
         </table>
         </center>
     </div>
+    <center>
+        <div class="hapus" id='hapus' onClick="window.location.reload()">
+          HAPUS 
+    </div>
+    </center>
+
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -207,13 +259,13 @@ div.exampletext {
     var getRadio=function(){
         console.log($('input[name=templateS]:checked').val()); 
         if ($('input[name=templateS]:checked').val()=='ujian'){
-            return 1; 
+            return 6; 
         }
         else if($('input[name=templateS]:checked').val()=='solusi'){
-            return 2;
+            return 7;
         }
         else if($('input[name=templateS]:checked').val()=='col2'){
-            return 3; 
+            return 5; 
         }
 	else if($('input[name=templateS]:checked').val()=='newspaper'){
             return 4; 
@@ -242,12 +294,27 @@ Web ini mendemokan ide tentang web application yang mempunyai tujuan sebagai sis
 </p>
 
 <p>
-Ditujukan kepada akademia atau edukator sebagai kemudahan menyusun soal-soal. <center>Feedback, feature request, or just shoutout, tweet to <a href="https://twitter.com/sksoalkl">@sksoalkl</a></center><br><center> email to kertasrapi@gmail.com  </center><br><center>atau komentar di halaman paling bawah</center>
+Saat ini sedang dalam proses mengumpulkan feedback untuk rilis berikutnya. Mohon feedbacknya... <center>Feedback, feature request, or just shoutout, tweet to <a href="https://twitter.com/sksoalkl">@sksoalkl</a></center><br><center> email to kertasrapi@gmail.com  </center><br><center>atau komentar di halaman paling bawah</center>
 </p>
+<p>
+Terima kasih buat Bapak Ichwan Aryono dari SMA Negeri 3 Yogyakarta yang telah mengirimkan contoh template soal.
+</p>
+<div id="11">
+    <h2>Soal bahasa jawa (11)</h2>
+ Tulis ulang aksara dibawah ini beserta sandhangannya jika ada: <br>
+<div class='java'>
+    <center> &#xA992&#xA9BA &#09 &#xA9A4&#xA980  &#xA9B2</center>
+</div>
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
 <div id="1">
-<h2>Soal 1</h2>
+    <h2>Soal fisika (1)</h2>
 <center>
-    <img src="./static/jpg/1_4_1_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+    <img src="./static/jpg/1_4_1_image_1.gif" style="max-width: 100%; height: auto;" ></img>
 </center>
 a. Projektil dilontarkan pada bidang miring dengan sudut $\phi$ dengan kecepatan awal $v$ dan sudut $\theta$ terhadap horizontal seperti pada gambar. Tunjukan bahwa projektil akan menempuh jarak $d$, dimana $d$ =
 \begin{equation*}
@@ -261,10 +328,25 @@ b. Berapa nilai $\theta$ supaya $d$ maksimum dan berapa nilai maksimum tersebut 
     </div>
 </div>
 
-<div id="2">
-<h2>Soal 2</h2>
+
+<div id="12">
+    <h2>Soal agama islam (12)</h2>
 <center>
-    <img src="./static/jpg/1_4_2_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+<div class='arab'>
+قُلْ سِيرُوا فِي الْأَرْضِ فَانْظُرُوا كَيْفَ كَانَ عَاقِبَةُ الَّذِينَ مِنْ قَبْلُ ۚ كَانَ أَكْثَرُهُمْ مُشْرِكِينَ
+</div>
+</center>
+Mim mati bertemu dengan huruf mim dalam  surat Ar Rum ayat 42 berbunyi
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
+<div id="2">
+    <h2>Soal Fisika (2) </h2>
+<center>
+    <img src="./static/jpg/1_4_2_image_1.JPG" style="max-width: 100%; height: auto;" ></img>
 </center>
 <br>
 Seseorang berdiri pada batu setengah bola yang beradius R menendang bola, sehingga bola mempunyai kecepatan horizontal $v$. <br> a$)$ Berapa kecepatan awal bola, jika bola tidak pernah menyentuh batu tersebut. <br>
@@ -275,10 +357,21 @@ b$)$ Dengan kecepatan kritis(kecepatan dimana bola hampir menyentuh bola), berap
     </div>
 </div>
 
+<div id="13">
+    <h2>Soal bahasa jepang (13)</h2>
+<div class='Hiragana'>
+わたしのなまえはりんです
+</div>
+Tulis <div class='Hiragana2'> ひらがな</div> diatas dalam bahasa latin dan artinya dalam bahasa indonesia:
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
 <div id="3">
-<h2>Soal 3</h2>
+    <h2>Soal fisika (3)</h2>
 <center>
-    <img src="./static/jpg/1_5_1_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
+    <img src="./static/jpg/1_5_1_image_1.JPG" style="max-width: 100%; height: auto;" ></img>
 </center>
 <br>
 Sebuah objek bermassa $m_{1}$ berada pada meja horizontal. $m_{1}$ dihubungkan dengan $m_{2}$ oleh katrol tak bermassa $P_{1}$ dan $P_{2}$ seperti pada gambar.<br>
@@ -290,8 +383,20 @@ c$)$ Cari percepatan benda 1 dan benda 2 dalam $m_{1}$, $m_{2}$, dan $g$ ?
     SUSUN
     </div>
 </div>
+<div id="14">
+    <h2>Soal matematika (14)</h2>
+Kerjakan pertanyaan dibawah ini
+\begin{eqnarray*}
+\lim_{x\to\infty} \frac{x^2-4}{x^2-3x+2}
+\end{eqnarray*}
+<br>
+    <div class="susunsoal">
+    SUSUN
+    </div>
+</div>
+
 <div id="4">
-<h2>Soal 4</h2>
+    <h2>Soal fisika (4)</h2>
 Mobil bergerak dengan kelajuan 1.0 m/s. Jika koefisien gesek kinetik antara ban dengan jalan sebesar 0.1<br>
 Ketika mobil menginjak rem, berapa jarak minimum mobil sampai benar-benar berhenti?
 <br>
@@ -300,14 +405,10 @@ Ketika mobil menginjak rem, berapa jarak minimum mobil sampai benar-benar berhen
     </div>
 </div>
 <div id="5">
-<h2>Soal 5</h2>
+    <h2>Soal fisika (5)</h2>
 <br>
 <center>
-    <img src="./static/jpg/1_5_14_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
-</center>
-
-<center>
-    <!--<img src="./jpg/1_5_14_image_2.jpg" style="max-width: 100%; height: auto;" ></img>-->
+    <img src="./static/jpg/1_5_14_image_1.JPG" style="max-width: 100%; height: auto;" ></img>
 </center>
 <br>
 Balok dengan massa 3.00 Kg ditekan ke atas pada dinding dengan gaya <b>P</b> yang membentuk sudut $50^{0}$ terhadap horizontal. Koefisien gesek statik antara balok dengan dinding sebesar 0.25. Tentukan nilai yang mungkin dari besar gaya <b>P</b> agar balok tetap stasioner.
@@ -317,7 +418,7 @@ Balok dengan massa 3.00 Kg ditekan ke atas pada dinding dengan gaya <b>P</b> yan
     </div>
 </div>
 <div id="6">
-<h2>Soal 6</h2>
+    <h2>Soal fisika (6)</h2>
 Piston dalam mesin berosilasi seperti gerak harmonis sederhana. Posisi berubah-ubah berdasarkan persamaan:
 \begin{eqnarray*}
 x=(5.0 \mbox{ cm})\cos(2t+\frac{\pi}{6})
@@ -327,49 +428,6 @@ a. Posisi piston <br>
 b. kecepatan piston <br>
 c. percepatan piston <br>
 d. Periode dan amplitudo
-<br>
-    <div class="susunsoal">
-    SUSUN
-    </div>
-</div>
-<div id="7">
-<h2>Soal 7</h2>
-Objek bermassa 1.0 Kg dikaitkan pada pegas horizontal. Mula-mula pegas ditarik hingga memanjang 0.10 m, kemudian objek dilepas. Setelah itu dibutuhkan waktu 0.5 s sampai kecepatan balok menjadi nol. Berapa kecepatan maksimum objek.
-<br>
-    <div class="susunsoal">
-    SUSUN
-    </div>
-</div>
-<div id="8">
-<h2>Soal 8</h2>
-<br>
-<center>
-    <img src="./static/jpg/1_5_7_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
-</center>
-Mobil mengalami percepatan ketika menuruni bukit. Mobil awalnya diam kemudian mempunyai kecepatan 30 m/s dalam waktu 6 detik. Selama mobil dipercepat tergantung bandul (m= 0.1 Kg) pada atap mobil. Percepatan mobil sedemikian rupa sehingga bandul tetap tegak lurus atap mobil. Tentukan sudut $\theta$ dan tegangan tali? 
-<br>
-    <div class="susunsoal">
-    SUSUN
-    </div>
-</div>
-<div id="9">
-<h2>Soal 9</h2>
-<br>
-<center>
-    <img src="./static/jpg/1_5_8_image_1.jpg" style="max-width: 100%; height: auto;" ></img>
-</center>
-Gambar free-body balok diagram yang turun pada bidang miring dengan $\theta=15^{0}$, bila balok awalnya berada pada puncak dan panjang dari sisi miring 2 m, cari: <br>
-a. percepatan balok <br>
-b. kecepatan ketika mencapai meninggalkan bidang miring
-<br>
-    <div class="susunsoal">
-    SUSUN
-    </div>
-</div>
-<div id="10">
-<h2>Soal 10</h2>
-<br>
-Balok bermassa 25.0 Kg diam pada permukaan horizontal. Gaya horizontal sebesar 75.0 N dibutuhkan untuk menggerakan balok. Setelah balok bergerak, gaya horizontal 60.0 N dibutuhkan untuk membuat balok bergerak dengan kecepatan konstan. Cari koefisien gesek statik dan kinetik dari informasi tersebut.
 <br>
     <div class="susunsoal">
     SUSUN
