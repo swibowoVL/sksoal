@@ -92,7 +92,7 @@ handler = logging.FileHandler('server.log')
 handler.setLevel(logging.INFO)
 
 # create a logging format
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s - %(name)s -%(funcName)10s()- %(levelname)s - %(message)s')
 handler.setFormatter(formatter)
 
 # add the handlers to the logger
