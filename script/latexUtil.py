@@ -4,6 +4,8 @@ import subprocess
 from .streamfileservice import StreamFileService
 from .mapservice import MapService
 from subprocess import Popen
+import logging
+log = logging.getLogger('main.'+__name__)
 class LatexUtil:
     def __init__(self):
         self.mp=MapService()
@@ -14,15 +16,17 @@ class LatexUtil:
     def texToPdf(self,namefile):
         if namefile is not None:
             try:
+                log.info('preparing latex process')
                 filepath=self.direcLatex+namefile+'.tex'
                 #cmdlist=['latexmk', '-xelatex', '-silent', '-interaction=batchmode', '-pdf', '-jobname='+self.direcPdf+namefile,filepath]
                 cmdlist=['latexmk', '-xelatex', '-silent', '-interaction=nonstopmode', '-pdf', '-jobname='+self.direcPdf+namefile,filepath]
                 proc=Popen(cmdlist,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
                 #proc=Popen(cmdlist,stdout=subprocess.DEVNULL)
                 #proc=Popen(cmdlist)
+                log.info('starting shell process')
                 return True,proc
             except Exception as e:
-                print(str(e))
+                log.exception('gt exception')
                 return False, None
     def process(self,listNumber):
         listFile=self.mp.process(listNumber)

@@ -7,7 +7,7 @@ import random
 import traceback
 import jinja2
 import aiohttp_jinja2
-#import util.logMe
+import logging
 
 async def rp(dictData):
     p,folderName,fileName=genFile(dictData)
@@ -37,16 +37,19 @@ async def handle(request):
     return web.Response(text=folderN+fileN)
 
 async def rootPage(request):
+    log.info('request from %s' %(request.host))
     context = {}
     response = aiohttp_jinja2.render_template("soal.html", request, context)
     return response
 
 async def check(request):
+    log.info('request from %s' %(request.host))
     return web.Response(text='ok')
 
 
 async def submit(request):
     try:
+        log.info('request from %s' %(request.host))
         #get content
         content=request.content
 
@@ -66,9 +69,8 @@ async def submit(request):
         urlRedirect="http://"+host+"/pdf/"+fileN
         return web.Response(text=urlRedirect)
     except Exception as e:
-        traceback.print_exc()
-        print(Exception)
-        return "RESPON FAILED"
+        log.exception('exception')
+        return web.Response(text="RESPON FAILED")
 
 def byteify(input):
     return input
@@ -81,12 +83,24 @@ def byteify(input):
         return input.encode('utf-8')
     else:
         return input
-#logging.config.fileConfig('logging.ini')
-#log=logging.getLogger(__name__)
-#logger.info('jj')
+#--------------
+log = logging.getLogger('main')
+log.setLevel(logging.DEBUG)
+
+# create a file handler
+handler = logging.FileHandler('server.log')
+handler.setLevel(logging.INFO)
+
+# create a logging format
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+# add the handlers to the logger
+log.addHandler(handler)
+
+#--------------
 app = web.Application()
 aiohttp_jinja2.setup(app,loader=jinja2.FileSystemLoader('./templates/'))
-#app.router.add_static('/templates', './templates/', show_index=True)
 app.router.add_static('/static', './static/', show_index=True)
 app.router.add_static('/pdf', './latex/outpdf/', show_index=True)
 app.router.add_post('/submit', submit)

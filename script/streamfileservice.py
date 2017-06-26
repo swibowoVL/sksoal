@@ -1,5 +1,8 @@
 import time
 import random 
+import logging
+log = logging.getLogger('main.'+__name__)
+
 class StreamFileService:
     def __init__(self):
         self.direcLatex='./latex/outtex/'
@@ -8,12 +11,14 @@ class StreamFileService:
         outStr=''
         for file in listFile:
             try:
+                log.info('preparing assemble file')
                 fileHandler=open(file,'r')
                 tempStr=fileHandler.read()
                 outStr+=tempStr
                 fileHandler.close()
+                log.info('success read all file')
             except Exception as e:
-                print(str(e))
+                log.exception('exception')
         return outStr
 
     def writeToFile(self,strContent):
@@ -22,13 +27,15 @@ class StreamFileService:
         namefile=curtime+'XX'+randInt
         if strContent != '':
             try:
+                log.info('preparing assemble write to file')
                 filepath=self.direcLatex+namefile+'.tex'
                 fileHandler=open(filepath,'w')
                 fileHandler.write(strContent)
                 fileHandler.close()
+                log.info('success writ to file')
                 return namefile
             except Exception as e:
-                print(str(e))
+                log.exception('exception')
                 return None
         else:
             return None
