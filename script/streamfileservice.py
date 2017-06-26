@@ -23,7 +23,6 @@ class StreamFileService:
         if strContent != '':
             try:
                 filepath=self.direcLatex+namefile+'.tex'
-                print(filepath)
                 fileHandler=open(filepath,'w')
                 fileHandler.write(strContent)
                 fileHandler.close()
@@ -39,3 +38,19 @@ class StreamFileService:
         filename=self.writeToFile(outStr)
         return filename
 
+if __name__=="__main__":
+    sts=StreamFileService()
+    sts.direcLatex='./'
+    obj='../latex/source/itemsoal/head.tex'
+    lst=[]
+    for i in range(0,1000):
+        lst.append(obj)
+    #lst=['../latex/source/itemsoal/head.tex','../latex/source/itemsoal/11.tex']
+    #outStr=str.assemble(lst)
+    sttime=time.time()
+    out=sts.process(lst)
+    elptime=time.time()-sttime
+    print(elptime)
+    #time.sleep(3)
+    #print(out)
+    
