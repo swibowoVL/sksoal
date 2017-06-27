@@ -72,7 +72,7 @@ async def submit(request):
         if filePath.is_file():
             return web.Response(text=urlRedirect)
         else:
-            return web.Response(text="Server penuh, tolong coba lagi"+fileN)
+            return web.Response(text="http://"+host+'/page/404.html')
     except Exception as e:
         log.exception('exception')
         return web.Response(text="RESPON FAILED")
@@ -106,6 +106,7 @@ log.addHandler(handler)
 #--------------
 app = web.Application()
 aiohttp_jinja2.setup(app,loader=jinja2.FileSystemLoader('./templates/'))
+app.router.add_static('/page', './page/', show_index=True)
 app.router.add_static('/static', './static/', show_index=True)
 app.router.add_static('/pdf', './latex/outpdf/', show_index=True)
 app.router.add_post('/submit', submit)
