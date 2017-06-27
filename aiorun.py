@@ -1,3 +1,4 @@
+from pathlib import Path
 import json
 from script.latexUtil import LatexUtil
 from aiohttp import web
@@ -67,7 +68,11 @@ async def submit(request):
         #get host and url redirect
         host=request.host
         urlRedirect="http://"+host+"/pdf/"+fileN
-        return web.Response(text=urlRedirect)
+        filePath=Path('./latex/outpdf/'+fileN)
+        if filePath.is_file():
+            return web.Response(text=urlRedirect)
+        else:
+            return web.Response(text="Server penuh, tolong coba lagi"+fileN)
     except Exception as e:
         log.exception('exception')
         return web.Response(text="RESPON FAILED")
