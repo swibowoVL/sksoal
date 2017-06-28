@@ -14,12 +14,9 @@ class MapService:
 	def getListFile(self,listNumber,templateId):
 		listOut=[]
 		listOut.append(self.template[templateId]['head'])
-		print(listOut)
 		for i in range(0,len(listNumber)):
 			if listNumber[i] in self.template[templateId]:
 				listOut=self.appendFile(listOut,listNumber[i],templateId)
-		print(listOut)
-		print(self.template[templateId]['tail'])
 		listOut.append(self.template[templateId]['tail'])
 		return listOut
 
@@ -50,4 +47,4 @@ class MapService:
                 
 
         
-        
+ 
