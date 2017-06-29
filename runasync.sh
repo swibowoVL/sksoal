@@ -1,1 +1,1 @@
-nohup sudo python3 aiorun.py &
+nohup sudo python3 aiorun.py sksoal &
