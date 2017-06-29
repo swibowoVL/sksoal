@@ -245,7 +245,8 @@ div.exampletext {
 		  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 		    var linkMobile=response+'/attach'; 
                     console.log(linkMobile);
-              	    window.location.href = linkMobile;
+                          <!--window.location.href = linkMobile;-->
+                    window.location.href = response;
 		  }else{
                     console.log(response);
                     window.location.href = response;
