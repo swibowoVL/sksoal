@@ -19,8 +19,8 @@ async def rp(dictData):
         if p.poll() is not None:
             print('job is ready')
             break
-        elif n>120:
-            return 'Gagal generate tolong coba lagi'
+        #elif n>120:
+            #return 'Gagal generate tolong coba lagi'
         else:
             #print('wait and leave',n)
             await asyncio.sleep(1)
@@ -43,7 +43,31 @@ async def rootPage(request):
     response = aiohttp_jinja2.render_template("soal.html", request, context)
     return response
 
+async def fail(request):
+    log.info('request from %s' %(request.host))
+    context = {}
+    response = aiohttp_jinja2.render_template("404.html", request, context)
+    return response
+
 async def check(request):
+    log.info('request from %s' %(request.host))
+    return web.Response(text='ok')
+
+async def pdf(request):
+    filename=request.match_info.get('file')
+    print(filename)
+    try:
+        fileO=open("latex/outpdf/"+str(filename),'rb')
+        kl=fileO.read()
+        fileO.close()
+        print(filename)
+        #return web.Response(body=kl)
+        return web.Response(body=kl,headers={'Content-Type': 'application/pdf','Content-Disposition':' inline'})
+    except Exception as e:
+        log.info('fail opening file')
+        log.info(str(e))
+        return web.Response(text='Gagal menyusun soal')
+
     log.info('request from %s' %(request.host))
     return web.Response(text='ok')
 
@@ -106,11 +130,13 @@ log.addHandler(handler)
 #--------------
 app = web.Application()
 aiohttp_jinja2.setup(app,loader=jinja2.FileSystemLoader('./templates/'))
-app.router.add_static('/page', './page/', show_index=True)
+#app.router.add_static('/page', './page/', show_index=True)
 app.router.add_static('/static', './static/', show_index=True)
-app.router.add_static('/pdf', './latex/outpdf/', show_index=True)
+#app.router.add_static('/pdf', './latex/outpdf/', show_index=True)
 app.router.add_post('/submit', submit)
 app.router.add_get('/', rootPage)
-app.router.add_get('/check',handle)
+app.router.add_get('/page/',fail)
+app.router.add_get('/pdf/{file}',pdf)
+app.router.add_get('/check',check)
 web.run_app(app,host='0.0.0.0',port=80)
 
