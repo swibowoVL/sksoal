@@ -1,0 +1,489 @@
+%Copyright 2014 Jean-Philippe Eisenbarth
+%This program is free software: you can 
+%redistribute it and/or modify it under the terms of the GNU General Public 
+%License as published by the Free Software Foundation, either version 3 of the 
+%License, or (at your option) any later version.
+%This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+%WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+%PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%You should have received a copy of the GNU General Public License along with 
+%this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%Based on the code of Yiannis Lazarides
+%http://tex.stackexchange.com/questions/42602/software-requirements-specification-with-latex
+%http://tex.stackexchange.com/users/963/yiannis-lazarides
+%Also based on the template of Karl E. Wiegers
+%http://www.se.rit.edu/~emad/teaching/slides/srs_template_sep14.pdf
+%http://karlwiegers.com
+\documentclass{scrreprt}
+\makeatletter
+\newcommand{\getCurrentSectionNumber}{%
+  \ifnum\c@section=0 %
+  \thechapter
+  \else
+  \ifnum\c@subsection=0 %
+  \thesection
+  \else
+  \ifnum\c@subsubsection=0 %
+  \thesubsection
+  \else
+  \thesubsubsection
+  \fi
+  \fi
+  \fi
+}
+
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{nameref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={Software Requirement Specification},    % title
+    pdfauthor={Jean-Philippe Eisenbarth},                     % author
+    pdfsubject={TeX and LaTeX},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\date{}
+%\title{%
+
+%}
+\usepackage{hyperref}
+\begin{document}
+
+\begin{flushright}
+    \rule{16cm}{5pt}\vskip1cm
+    \begin{bfseries}
+        \Huge{SOFTWARE REQUIREMENTS\\ SPECIFICATION}\\
+        \vspace{1.9cm}
+        for\\
+        \vspace{1.9cm}
+        kertasrapi v1.0\\
+        \vspace{1.9cm}
+        \LARGE{Version \myversion approved}\\
+        \vspace{1.9cm}
+        Prepared by Sandi Wibowo\\
+        \vspace{1.9cm}
+        Kertas Rapi\\
+        \vspace{1.9cm}
+        \today\\
+    \end{bfseries}
+\end{flushright}
+
+\tableofcontents
+
+
+\chapter*{Revision History}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+	    Name & Date & Reason For Changes & Version\\
+        \hline
+	    21 & 22 & 23 & 24\\
+        \hline
+	    31 & 32 & 33 & 34\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\chapter{Introduction}
+
+\section{Purpose}
+The purpose of this document is to give a guideline, to state a set of description, and to serve as initial direction of a production cycle. It will state a set of requirements that must be implemented for a release v1.0. The nature of agile methodology allows the modfication of this document as we progress. 
+
+The stage of the project is not just an idea but the technology has been implenented and serve as a first MVP (minimum viable product). The demo of this product is presented at http://demo.kertasrapi.com. It will be helpful to understand the specifications if one has tried the demo before. 
+
+\section{Document Definition}
+\begin{itemize}
+\item Demo: http://demo.kertasrapi.com
+\item kertasrapi: the name of this application is kertasrapi. This project is to build web application and referred as kertasrapi. 
+\item Shareholder(s): any interest party that has authority to set direction  of the project.
+\item User(s): the consumer of this application. Teacher, tutor, lecturer, or any educator are the potential users.
+\item Problem: A single material in  homework, assignment or exam
+\item p-cart: A cart containing problems that has been selected by user.
+\end{itemize}
+
+\section{Intended Audience and Reading Suggestions}
+\begin{enumerate}
+\item Shareholder  \\
+  Verbal description gives general idea of the project. Moreover, This written document is intended to give more thorough and transparant description of it. Therefore, shareholder or any interest party can evaluate the potential, the feasibility, or the fit of shareholder's interest and vision.  
+\item System architech \\
+ Following this guideline serves as direction of how to architect the corresponding technology. System architech can create system design document based on the defined specification.
+\item Tester  \\
+    Specification serve as a direction of what test cases should be included. A set of test cases must be generated to satisfy the requirement. 
+\end{enumerate}
+
+This document has three chapters and a appendixes. The second one provide descriptive of working functionality and the interaction with other system. The third chapter describes a set of requirements to be satisfied as features for release v1.0. The appendixes include a discussion about posibilities implementing the technology on different field other than education.  
+
+\section{Project Scope}
+This project is to build web application that has function as assignment management system. The goal is to provide convenient ways to educator to produce documents for assignment/exam/handout. 
+
+The idea is to provide a service platform for educators. The platform allow educator to select which assignment they want to include then the platform will generate a clean neat document for that assignment. Go to http://demo.kertasrapi.com to try the working system.
+
+\section{References}
+\begin{enumerate}
+    \item http://demo.kertasrapi.com
+\end{enumerate}
+
+\chapter{Overall Description}
+
+\section{Product Perspective}
+This product is a stand alone web application that can be accessed through web browser which is connected to internet. The product is to provide services of automatic document generator. Users of this product only concern about content and its sequence, the output document of is handled by this product. For the moment, the focus of the product is to automated the document generation of assgnment or exam. Mainly the user of kertasrapi is members of school or any educational institution where preparation of exam/assignment is a part of recurring activity.    
+
+\section{Product Functions}
+The main functionality of kertasrapi is to take over the responsbility of gnerating document from user to the system . Kertasrapi will provide a collection of problems and solution in school level. User can select which problem to be assembled. Afterthat, a user select which template to be used. The final result is a well ordered document generated by kertasrapi ready to be handed out to students. The step is illustrated in figur
+
+The system consist of three components. Those are front end as web interface, backend as content management, and API as document generator. Front end is client/browser web application that rely on java script. Backend consist of API and database to store data such as user profile, problem solution, label, etc. The API is the heart of this product and the function is to generate realtime document based on user request. 
+
+The functionality of a user can upload their own problem-solution will be provided for the release v2.0. For the release v1.0, user can send or email the content to kertasrapi's team and our team is the one who will upload the content to the system. The reason of that because by kertasrapi's team gather data during the process of uploading the content. The data is important to determine how to create compelling text editor customized the education institution. The process for v1.0 is illustrated in figure
+
+
+\section{User Classes and Characteristics}
+School or education institution is the main client of kertasrapi. The actual users will be the members of education institution such as teacher, tutor, or lecturer. The users can accss the web only if their school has estabilished relation with kertasrapi(e.g pay subscription fee). 
+
+Any user or teacher can register to kertasrapi but they will not have access to any features. Once a user establish relation to kertasrapi then kertasrapi will send secret code to him/her. He/She can now distribute the secret code to all members of school. Other member of school can access the web by inserting the secret code for their own school.
+
+Users can login either using email or cellphone number. The login cellphone is provided to give better flexibility given that not all teach are active email user. The form to change their email or cellphone will be provided
+
+\section{Operating Environment}
+This web application works on web browser. Any operating system that has web browser installed can be used to run this application. Any devices that are able to run web browser can be used to run this application
+
+\section{Design and Implementation Constraints}
+Proper internet connection is the constraint to use this app. The internet connection should be  able to have enough speed to transfer pdf document. A web browser is required to access this document. 
+https://www.w3.org/TR/2012/REC-WOFF-20121213/
+
+\section{User Documentation}
+A cookbook-like document showing how to use the application will be provided and can be downloaded in pdf from user support page. Customer support will be provided using email, call, or letter.
+
+\section{Assumptions and Dependencies}
+The assumption here is the web browser must have compatibility that follow web font standard. A web browser that is released after 2012 can handle this app.
+
+
+\chapter{External Interface Requirements}
+
+\section{User Interfaces}
+The items below are general description about the available web interface to user:
+\begin{itemize}
+    \item An interface to register.
+        This page cantains item to insert email or cellphone number (for those who doesn't use emai) and password. Verification will be send to their email or SMS that the register has been successful.
+    \item An interface to login page.
+        This page contains fields to login using email/cell-number and password.
+    \item An interface to user management.
+        This page contains information about user. It shows current information of their email/cellphone number. There is a field to change their password. Another important field is to add secondary email or cellphone number.
+    \item An interface to insert secret code.
+        This page contains a field to insert their secret code. 
+    \item An interface to access the collection of problems.
+        This page(s) contain all available problems (and with their solution). The illustration is given in demo. 
+    \item An interface or a tool to select, search and put a problem to p-cart. 
+        This page(s) contain tools to retrieve information most relevant to the user. 
+    \item An interface or tool to add information on p-cart.
+        This page(s) contain tool where user can add information before the document is generated. Any information that is given to template can be inserted here.  
+    \item An interface to show information about the company, contact support, and instruction how to upload problems to the app.
+\end{itemize}
+
+\section{Hardware Interfaces}
+Modern computer or smartphone with web browser installed should be able to run the app. An interface to select item in web app is required, those interface can be mouse, keyboard, touch screen, touch pad, etc.  
+
+
+\section{Software Interfaces}
+Database is stored in backend component. There is another component/service which connect backend to API.The service will read data from backend/database then send it to API processer and return the document back to backend. The API will concern only about processing and will not store any data.   
+
+\section{Communications Interfaces}
+Web browser communicate through our API using standard HTTP 1.1. The request of a user selecting particular items is represented by HTTP 1.1 request to kertasprapi's API. 
+
+\chapter{System Features}
+This chaper include the requirment for this app
+$<$This template illustrates organizing the functional requirements for the 
+product by system features, the major services provided by the product. You may 
+prefer to organize this section by use case, mode of operation, user class, 
+object class, functional hierarchy, or combinations of these, whatever makes the 
+most logical sense for your product.$>$
+
+\section{User management}
+$<$Don’t really say “System Feature 1.” State the feature name in just a few 
+words.$>$
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\label{login}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& user register\\ \hline
+         DESCRIPTION& user register using email or cellphone number   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& user login\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& add change email\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& payment\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Item management}
+$<$Don’t really say “System Feature 1.” State the feature name in just a few 
+words.$>$
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& List problem\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Sort by label\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Search item\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Put to p-cart\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Remove from p-cart\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Add information to template\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Generate document\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{FRv1.\arabic{section}.\arabic{subsection}}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+         TITLE& Download document\\ \hline
+         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& None \\ \hline
+         BASIC PATH&  \\ \hline
+    \end{tabular}
+\end{table}
+
+TITLE login
+DESC
+DEP
+BASIC PATH
+
+Register
+
+Payment
+
+Add email/cell
+
+List
+
+Sort by label
+
+Search
+
+Put to p-cart
+
+Remove from p-cart
+
+Add information to template
+
+Generate document
+
+Download document
+
+$<$Provide a short description of the feature and indicate whether it is of 
+High, Medium, or Low priority. You could also include specific priority 
+component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+relative scale from a low of 1 to a high of 9).$>$
+
+\subsection{Stimulus/Response Sequences}
+$<$List the sequences of user actions and system responses that stimulate the 
+behavior defined for this feature. These will correspond to the dialog elements 
+associated with use cases.$>$
+
+\subsection{Functional Requirements}
+$<$Itemize the detailed functional requirements associated with this feature.  
+These are the software capabilities that must be present in order for the user 
+to carry out the services provided by the feature, or to execute the use case.  
+Include how the product should respond to anticipated error conditions or 
+invalid inputs. Requirements should be concise, complete, unambiguous, 
+verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+information is not yet available.$>$
+
+$<$Each requirement should be uniquely identified with a sequence number or a 
+meaningful tag of some kind.$>$
+
+REQ-1:	REQ-2:
+
+\section{Item Management)}
+
+\section{Document Generator)}
+
+\section{Payment Integration)}
+
+\section{System Feature 2 (and so on)}
+
+
+\chapter{Other Nonfunctional Requirements}
+
+\section{Performance Requirements}
+$<$If there are performance requirements for the product under various 
+circumstances, state them here and explain their rationale, to help the 
+developers understand the intent and make suitable design choices. Specify the 
+timing relationships for real time systems. Make such requirements as specific 
+as possible. You may need to state performance requirements for individual 
+functional requirements or features.$>$
+
+\section{Safety Requirements}
+$<$Specify those requirements that are concerned with possible loss, damage, or 
+harm that could result from the use of the product. Define any safeguards or 
+actions that must be taken, as well as actions that must be prevented. Refer to 
+any external policies or regulations that state safety issues that affect the 
+product’s design or use. Define any safety certifications that must be 
+satisfied.$>$
+
+\section{Security Requirements}
+$<$Specify any requirements regarding security or privacy issues surrounding use 
+of the product or protection of the data used or created by the product. Define 
+any user identity authentication requirements. Refer to any external policies or 
+regulations containing security issues that affect the product. Define any 
+security or privacy certifications that must be satisfied.$>$
+
+\section{Software Quality Attributes}
+$<$Specify any additional quality characteristics for the product that will be 
+important to either the customers or the developers. Some to consider are: 
+adaptability, availability, correctness, flexibility, interoperability, 
+maintainability, portability, reliability, reusability, robustness, testability, 
+and usability. Write these to be specific, quantitative, and verifiable when 
+possible. At the least, clarify the relative preferences for various attributes, 
+such as ease of use over ease of learning.$>$
+
+\section{Business Rules}
+$<$List any operating principles about the product, such as which individuals or 
+roles can perform which functions under specific circumstances. These are not 
+functional requirements in themselves, but they may imply certain functional 
+requirements to enforce the rules.$>$
+
+
+\chapter{Other Requirements}
+$<$Define any other requirements not covered elsewhere in the SRS. This might 
+include database requirements, internationalization requirements, legal 
+requirements, reuse objectives for the project, and so on. Add any new sections 
+that are pertinent to the project.$>$
+
+\section{Appendix A: Glossary}
+%see https://en.wikibooks.org/wiki/LaTeX/Glossary
+$<$Define all the terms necessary to properly interpret the SRS, including 
+acronyms and abbreviations. You may wish to build a separate glossary that spans 
+multiple projects or the entire organization, and just include terms specific to 
+a single project in each SRS.$>$
+
+\section{Appendix B: Analysis Models}
+$<$Optionally, include any pertinent analysis models, such as data flow 
+diagrams, class diagrams, state-transition diagrams, or entity-relationship 
+diagrams.$>$
+
+\section{Appendix C: To Be Determined List}
+$<$Collect a numbered list of the TBD (to be determined) references that remain 
+in the SRS so they can be tracked to closure.$>$
+
+\end{document}
