@@ -58,6 +58,8 @@
 
 %}
 \usepackage{hyperref}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \begin{document}
 
 \begin{flushright}
@@ -203,287 +205,160 @@ Web browser communicate through our API using standard HTTP 1.1. The request of 
 
 \chapter{System Features}
 This chaper include the requirment for this app
-$<$This template illustrates organizing the functional requirements for the 
-product by system features, the major services provided by the product. You may 
-prefer to organize this section by use case, mode of operation, user class, 
-object class, functional hierarchy, or combinations of these, whatever makes the 
-most logical sense for your product.$>$
 
 \section{User management}
-$<$Don’t really say “System Feature 1.” State the feature name in just a few 
-words.$>$
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\label{login}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:register}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
-         TITLE& user register\\ \hline
-         DESCRIPTION& user register using email or cellphone number   \\ \hline
+         TITLE& Register\\ \hline
+         DESCRIPTION& User can register using email or cellphone number   \\ \hline
          DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:login}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
-         TITLE& user login\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         TITLE& Login\\ \hline
+         DESCRIPTION& User can login using email or cellphone number and password   \\ \hline
+         DEPENDENCY& \ref{fr:register}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:changeid}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
-         TITLE& add change email\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         TITLE& Change id\\ \hline
+         DESCRIPTION& After user register, they can change their primary id (Either email or cellphone)\\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:payment}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
-         TITLE& payment\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         TITLE& Payment\\ \hline
+         DESCRIPTION& To accept payment as a part of premium service \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \section{Item management}
-$<$Don’t really say “System Feature 1.” State the feature name in just a few 
-words.$>$
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:listp}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& List problem\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can go to problem's page and list all problem they can access \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:sortp}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Sort by label\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can filter out problem based on their labels \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:sortp}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Search item\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can search the problem which are most relevant to them\\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:putcart}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Put to p-cart\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can add problem to temporary container before generating document \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:remcart}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Remove from p-cart\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can remove the items/problem from temporary container \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:addinfo}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Add information to template\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can add information to template before generating document\\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:genpdf}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Generate document\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& User can generate pdf document based on p-cart and information in container    \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
 \subsection{FRv1.\arabic{section}.\arabic{subsection}}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|}
+\label{fr:downloadpdf}
+\begin{center}
+    \begin{tabular}{|l|L{9cm}|}
         \hline
          TITLE& Download document\\ \hline
-         DESCRIPTION& user login using email or cellphone number and password   \\ \hline
-         DEPENDENCY& None \\ \hline
-         BASIC PATH&  \\ \hline
+         DESCRIPTION& After the process of generating is finished, User can download it \\ \hline
+         DEPENDENCY& \ref{fr:register} \ref{fr:login}\\ \hline
     \end{tabular}
-\end{table}
+\end{center}
 
-TITLE login
-DESC
-DEP
-BASIC PATH
+\section{Nonfunctional Requirements}
 
-Register
+\subsection{Consistency Requirements}
+The standard of consistency become vital because of multiple device (interface) can be used to access the web app. There are three possible category of it. First is the hardware or device that they are using. The second layer is the operating system of it. The last layer is the web browser that is used to access the web app. The quality of document should be independent of those layers. Any users who access from any device, operating system, and web browser must receive the exact identical document as per their request.   
 
-Payment
+The consistency in this manner is also defined as a constraint to be interoperable. If the quality of document generated is the same quality of printed media (e.g. book) then the emphasize is to focus on technology which has the quality of printed media. The quality of the output document should be defined by that technology, not with the interface of the technology. 
 
-Add email/cell
+\section{Reliability Requirements}
+All server which host web application has limit to what number of request they can handle over a given time. The reliability requirement indicate that the server or the infrastructure must scale horizontally to adapt to the demand of users request. Other part of reliability is to detect a failure in a process and be able to handle them under a given circumstances.   
 
-List
-
-Sort by label
-
-Search
-
-Put to p-cart
-
-Remove from p-cart
-
-Add information to template
-
-Generate document
-
-Download document
-
-$<$Provide a short description of the feature and indicate whether it is of 
-High, Medium, or Low priority. You could also include specific priority 
-component ratings, such as benefit, penalty, cost, and risk (each rated on a 
-relative scale from a low of 1 to a high of 9).$>$
-
-\subsection{Stimulus/Response Sequences}
-$<$List the sequences of user actions and system responses that stimulate the 
-behavior defined for this feature. These will correspond to the dialog elements 
-associated with use cases.$>$
-
-\subsection{Functional Requirements}
-$<$Itemize the detailed functional requirements associated with this feature.  
-These are the software capabilities that must be present in order for the user 
-to carry out the services provided by the feature, or to execute the use case.  
-Include how the product should respond to anticipated error conditions or 
-invalid inputs. Requirements should be concise, complete, unambiguous, 
-verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
-information is not yet available.$>$
-
-$<$Each requirement should be uniquely identified with a sequence number or a 
-meaningful tag of some kind.$>$
-
-REQ-1:	REQ-2:
-
-\section{Item Management)}
-
-\section{Document Generator)}
-
-\section{Payment Integration)}
-
-\section{System Feature 2 (and so on)}
+\section{Extensibility Requirements}
+The core of this web application is the technology to generate high quality document that has standard of printed media. Such technology doesn't limit them self just for education purpose. It open the application across different field where generation of printed media is needed. The requirement of extensibility impose that the API to generate document open them self to any document without limitiation to education field.  
 
 
-\chapter{Other Nonfunctional Requirements}
+\section{Appendix}
+The demo (http://demo.kertasrapi.com) showcase the capability of the technology. The field of scientific publishing has been using the similar type of technology. Important to note, the strong point of this technology is not just to assemble document but to typeset it, Furthermore, it allows separation between the content provided and the designer. The main reason choosing technology from scientific publising is to have reliable, consistent, and extensibible technology to generate document in realtime.   
 
-\section{Performance Requirements}
-$<$If there are performance requirements for the product under various 
-circumstances, state them here and explain their rationale, to help the 
-developers understand the intent and make suitable design choices. Specify the 
-timing relationships for real time systems. Make such requirements as specific 
-as possible. You may need to state performance requirements for individual 
-functional requirements or features.$>$
-
-\section{Safety Requirements}
-$<$Specify those requirements that are concerned with possible loss, damage, or 
-harm that could result from the use of the product. Define any safeguards or 
-actions that must be taken, as well as actions that must be prevented. Refer to 
-any external policies or regulations that state safety issues that affect the 
-product’s design or use. Define any safety certifications that must be 
-satisfied.$>$
-
-\section{Security Requirements}
-$<$Specify any requirements regarding security or privacy issues surrounding use 
-of the product or protection of the data used or created by the product. Define 
-any user identity authentication requirements. Refer to any external policies or 
-regulations containing security issues that affect the product. Define any 
-security or privacy certifications that must be satisfied.$>$
-
-\section{Software Quality Attributes}
-$<$Specify any additional quality characteristics for the product that will be 
-important to either the customers or the developers. Some to consider are: 
-adaptability, availability, correctness, flexibility, interoperability, 
-maintainability, portability, reliability, reusability, robustness, testability, 
-and usability. Write these to be specific, quantitative, and verifiable when 
-possible. At the least, clarify the relative preferences for various attributes, 
-such as ease of use over ease of learning.$>$
-
-\section{Business Rules}
-$<$List any operating principles about the product, such as which individuals or 
-roles can perform which functions under specific circumstances. These are not 
-functional requirements in themselves, but they may imply certain functional 
-requirements to enforce the rules.$>$
-
-
-\chapter{Other Requirements}
-$<$Define any other requirements not covered elsewhere in the SRS. This might 
-include database requirements, internationalization requirements, legal 
-requirements, reuse objectives for the project, and so on. Add any new sections 
-that are pertinent to the project.$>$
-
-\section{Appendix A: Glossary}
-%see https://en.wikibooks.org/wiki/LaTeX/Glossary
-$<$Define all the terms necessary to properly interpret the SRS, including 
-acronyms and abbreviations. You may wish to build a separate glossary that spans 
-multiple projects or the entire organization, and just include terms specific to 
-a single project in each SRS.$>$
-
-\section{Appendix B: Analysis Models}
-$<$Optionally, include any pertinent analysis models, such as data flow 
-diagrams, class diagrams, state-transition diagrams, or entity-relationship 
-diagrams.$>$
-
-\section{Appendix C: To Be Determined List}
-$<$Collect a numbered list of the TBD (to be determined) references that remain 
-in the SRS so they can be tracked to closure.$>$
-
+Document generator and its management is open problem because there are different customization for different fields. However, the technology to generate document in realtime is field-agnostic. The possibility to implement this technology in different field is still open widely. In conclusion, the direction of this project may be shifted if one can find compelling use case for this technology. 
 \end{document}
